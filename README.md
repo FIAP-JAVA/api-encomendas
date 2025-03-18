@@ -1,10 +1,3 @@
-### **Nome do Repositório**
-Sugiro o nome: **tech-challenge-encomendas**
-
-Agora, aqui está o README detalhado para o repositório:
-
----
-
 ## **📦 Tech Challenge - Gerenciamento de Encomendas**
 ### 🏢 Sistema de gerenciamento de encomendas para prédios residenciais
 
