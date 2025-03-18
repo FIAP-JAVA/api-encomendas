@@ -52,8 +52,8 @@ Ou pode ser configurado manualmente no `application.yml`:
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/encomendas
-    username: postgres
-    password: senha123
+    username: sua-senha
+    password: sua-senha
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
