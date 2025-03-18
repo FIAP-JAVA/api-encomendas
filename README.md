@@ -52,7 +52,7 @@ Ou pode ser configurado manualmente no `application.yml`:
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/encomendas
-    username: sua-senha
+    username: seu-usuario
     password: sua-senha
     driver-class-name: org.postgresql.Driver
   jpa:
