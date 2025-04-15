@@ -1,7 +1,7 @@
 ## **📦Gerenciamento de Encomendas**
 ### 🏢 Sistema de gerenciamento de encomendas para prédios residenciais
 
-![Java](https://img.shields.io/badge/Java-17-blue) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.7-brightgreen) ![Docker](https://img.shields.io/badge/Docker-✔-blue) ![RabbitMQ](https://img.shields.io/badge/RabbitMQ-✔-orange) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-✔-blue)
+![Java](https://img.shields.io/badge/Java-17-blue) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.0.0-brightgreen) ![Docker](https://img.shields.io/badge/Docker-✔-blue) ![RabbitMQ](https://img.shields.io/badge/RabbitMQ-✔-orange) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-✔-blue)
 
 ---
 
@@ -86,10 +86,10 @@ Após rodar o projeto, acesse a documentação:
 ```
 📂 tech-challenge-encomendas
 ├── 📂 src/main/java/com/techchallenge/encomendas
-│   ├── 📂 domain (Entidades de negócio)
-│   ├── 📂 application (Casos de uso)
 │   ├── 📂 adapters (Controllers, Repositórios, Mensageria)
-│   ├── 📂 config (Configurações do Spring)
+│   ├── 📂 application (Casos de uso, DTOs, Mappers e Services)
+│   ├── 📂 domain (Entidades de negócio)
+│   ├── 📂 infrastructure (Repositórios e Mensageria)
 │   ├── 📂 tests (Testes unitários e integração)
 ├── 📄 Dockerfile
 ├── 📄 docker-compose.yml
