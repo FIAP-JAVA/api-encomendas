@@ -7,6 +7,10 @@ import com.techchallenge.encomendas.application.usecases.encomenda.RegistrarEnco
 import com.techchallenge.encomendas.domain.entities.Encomenda;
 import com.techchallenge.encomendas.domain.entities.Morador;
 import com.techchallenge.encomendas.domain.enums.Status;
+import com.techchallenge.encomendas.domain.exceptions.CamposObrigatoriosException;
+import com.techchallenge.encomendas.domain.exceptions.encomenda.EncomendaJaRetiradaException;
+import com.techchallenge.encomendas.domain.exceptions.encomenda.EncomendaNaoEncontradaException;
+import com.techchallenge.encomendas.domain.exceptions.morador.MoradorNaoEncontradoException;
 import com.techchallenge.encomendas.domain.repositories.EncomendaRepository;
 import com.techchallenge.encomendas.domain.repositories.MoradorRepository;
 import com.techchallenge.encomendas.infrastructure.messaging.MensageriaGateway;
@@ -41,12 +45,12 @@ public class RegistrarEncomendaService implements RegistrarEncomendaUseCase {
         Morador morador;
         if (novaEncomendaDTO.moradorId() != null) {
             morador = moradorRepository.buscarPorId(novaEncomendaDTO.moradorId())
-                    .orElseThrow(() -> new IllegalArgumentException("Morador não encontrado: " + novaEncomendaDTO.moradorId()));
+                    .orElseThrow(() -> new MoradorNaoEncontradoException("Morador não encontrado: " + novaEncomendaDTO.moradorId()));
         } else if (novaEncomendaDTO.moradorCpf() != null && !novaEncomendaDTO.moradorCpf().isEmpty()) {
             morador = moradorRepository.buscarPorCpf(novaEncomendaDTO.moradorCpf())
-                    .orElseThrow(() -> new IllegalArgumentException("Morador não encontrado com CPF: " + novaEncomendaDTO.moradorCpf()));
+                    .orElseThrow(() -> new MoradorNaoEncontradoException("Morador não encontrado com CPF: " + novaEncomendaDTO.moradorCpf()));
         } else {
-            throw new IllegalArgumentException("É necessário informar o ID ou CPF do morador");
+            throw new CamposObrigatoriosException("É necessário informar o ID ou CPF do morador");
         }
 
         Encomenda encomenda = new Encomenda();
@@ -69,10 +73,10 @@ public class RegistrarEncomendaService implements RegistrarEncomendaUseCase {
     @Transactional
     public EncomendaDTO registrarRetirada(Long encomendaId) {
         Encomenda encomenda = encomendaRepository.buscarPorId(encomendaId)
-                .orElseThrow(() -> new IllegalArgumentException("Encomenda não encontrada: " + encomendaId));
+                .orElseThrow(() -> new EncomendaNaoEncontradaException(encomendaId));
 
         if (Status.RETIRADA.equals(encomenda.getStatus())) {
-            throw new IllegalStateException("Esta encomenda já foi retirada");
+            throw new EncomendaJaRetiradaException(encomendaId);
         }
 
         encomenda.setStatus(Status.RETIRADA);
@@ -90,7 +94,7 @@ public class RegistrarEncomendaService implements RegistrarEncomendaUseCase {
     @Override
     public boolean confirmarNotificacao(Long encomendaId) {
         Encomenda encomenda = encomendaRepository.buscarPorId(encomendaId)
-                .orElseThrow(() -> new IllegalArgumentException("Encomenda não encontrada: " + encomendaId));
+                .orElseThrow(() -> new EncomendaNaoEncontradaException(encomendaId));
 
         if (encomenda.getDataConfirmacaoNotificacao() != null) {
             return true;
@@ -104,16 +108,16 @@ public class RegistrarEncomendaService implements RegistrarEncomendaUseCase {
 
     private void validarCamposObrigatorios(NovaEncomendaDTO novaEncomendaDTO) {
         if (novaEncomendaDTO.descricao() == null || novaEncomendaDTO.descricao().trim().isEmpty()) {
-            throw new IllegalArgumentException("A descrição da encomenda é obrigatória");
+            throw new CamposObrigatoriosException("A descrição da encomenda é obrigatória");
         }
 
         if (novaEncomendaDTO.recebidaPor() == null || novaEncomendaDTO.recebidaPor().trim().isEmpty()) {
-            throw new IllegalArgumentException("É necessário informar quem recebeu a encomenda");
+            throw new CamposObrigatoriosException("É necessário informar quem recebeu a encomenda");
         }
 
         if (novaEncomendaDTO.moradorId() == null &&
                 (novaEncomendaDTO.moradorId() == null || novaEncomendaDTO.moradorCpf().trim().isEmpty())) {
-            throw new IllegalArgumentException("É necessário informar o ID ou CPF do morador");
+            throw new CamposObrigatoriosException("É necessário informar o ID ou CPF do morador");
         }
     }
 }

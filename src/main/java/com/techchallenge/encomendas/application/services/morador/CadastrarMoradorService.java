@@ -4,6 +4,7 @@ import com.techchallenge.encomendas.application.dto.MoradorDTO;
 import com.techchallenge.encomendas.application.mapper.MoradorMapper;
 import com.techchallenge.encomendas.application.usecases.morador.CadastrarMoradorUseCase;
 import com.techchallenge.encomendas.domain.entities.Morador;
+import com.techchallenge.encomendas.domain.exceptions.morador.MoradorJaCadastradoException;
 import com.techchallenge.encomendas.domain.repositories.MoradorRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,8 @@ public class CadastrarMoradorService implements CadastrarMoradorUseCase {
     private final MoradorRepository moradorRepository;
     private final MoradorMapper moradorMapper;
 
-    public CadastrarMoradorService(MoradorRepository moradorRepository, MoradorMapper moradorMapper) {
+    public CadastrarMoradorService(MoradorRepository moradorRepository,
+                                   MoradorMapper moradorMapper) {
         this.moradorRepository = moradorRepository;
         this.moradorMapper = moradorMapper;
     }
@@ -23,7 +25,7 @@ public class CadastrarMoradorService implements CadastrarMoradorUseCase {
     @Transactional
     public MoradorDTO cadastrar(MoradorDTO moradorDTO) {
         if (moradorDTO.cpf() != null && moradorRepository.existePorCpf(moradorDTO.cpf())) {
-            throw new IllegalArgumentException("Já existe um morador cadastrado com este CPF");
+            throw new MoradorJaCadastradoException("Já existe um morador cadastrado com este CPF");
         }
 
         validarCamposObrigatorios(moradorDTO);
