@@ -1,4 +1,4 @@
-## **📦 Tech Challenge - Gerenciamento de Encomendas**
+## **📦Gerenciamento de Encomendas**
 ### 🏢 Sistema de gerenciamento de encomendas para prédios residenciais
 
 ![Java](https://img.shields.io/badge/Java-17-blue) ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.7-brightgreen) ![Docker](https://img.shields.io/badge/Docker-✔-blue) ![RabbitMQ](https://img.shields.io/badge/RabbitMQ-✔-orange) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-✔-blue)
@@ -14,14 +14,14 @@ O **Tech Challenge - Gerenciamento de Encomendas** é um sistema que permite que
 ✔ Notificação automática ao morador sobre a chegada da encomenda  
 ✔ Confirmação de retirada da encomenda pelo morador  
 ✔ Persistência de dados no banco PostgreSQL  
-✔ Sistema baseado em **Arquitetura Hexagonal** e **Clean Architecture**  
+✔ Sistema baseado em **Clean Architecture**  
 ✔ Contêiner Docker para fácil execução  
 
 ---
 
 ## **🛠 Tecnologias Utilizadas**
 - **Java 17**
-- **Spring Boot 3.3.7**
+- **Spring Boot 3.0.0**
 - **Spring Data JPA**
 - **Spring AMQP (RabbitMQ)**
 - **Spring Web**
@@ -66,8 +66,8 @@ spring:
 ### **3️⃣ Rodando o projeto**
 Clone o repositório:
 ```bash
-git clone https://github.com/seu-usuario/tech-challenge-encomendas.git
-cd tech-challenge-encomendas
+git clone https://github.com/seu-usuario/api-encomendas.git
+cd api-challenge-encomendas
 ```
 Compile e execute:
 ```bash
@@ -103,15 +103,24 @@ Após rodar o projeto, acesse a documentação:
 | Método | Endpoint          | Descrição                 |
 |--------|------------------|--------------------------|
 | POST   | `/moradores`      | Cadastrar um morador     |
+| GET   | `/moradores`      | Lista todos moradores   |
 | GET    | `/moradores/{id}` | Buscar morador por ID    |
+| GET    | `/moradores/?cpf` | Buscar morador por CPF    |
+| GET    | `/moradores/?apartamento` | Buscar morador por Apartamento    |
 
 ### **🔹 Encomendas**
 | Método | Endpoint          | Descrição                      |
 |--------|------------------|--------------------------------|
 | POST   | `/encomendas`      | Registrar uma nova encomenda  |
 | GET    | `/encomendas/{id}` | Buscar encomenda por ID       |
-| PUT    | `/encomendas/{id}/retirada` | Confirmar retirada |
+| PUT    | `/encomendas/{id}/retirada` | Confirmar retirada da encomenda |
+| PUT    | `/encomendas/{id}/confirmar-notificacao` | Confirmar notificação ao Morador |
 
+---
+
+## **🛠 Modelagem de Dados**
+---
+![image](https://github.com/user-attachments/assets/b1bee03b-d16d-45c0-a5a3-d552c1f013c4)
 ---
 
 ## **🛠 Testes**
