@@ -8,7 +8,6 @@ import com.techchallenge.encomendas.domain.enums.Status;
 import com.techchallenge.encomendas.domain.repositories.EncomendaRepository;
 import com.techchallenge.encomendas.domain.repositories.MoradorRepository;
 import com.techchallenge.encomendas.infrastructure.messaging.MensageriaGateway;
-import com.techchallenge.encomendas.utils.FormatadorDataUtils;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
