@@ -8,10 +8,13 @@ import com.techchallenge.encomendas.domain.enums.Status;
 import com.techchallenge.encomendas.domain.repositories.EncomendaRepository;
 import com.techchallenge.encomendas.domain.repositories.MoradorRepository;
 import com.techchallenge.encomendas.infrastructure.messaging.MensageriaGateway;
+import com.techchallenge.encomendas.utils.FormatadorDataUtils;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class NotificarMoradorService implements NotificarMoradorUseCase {
@@ -74,7 +77,10 @@ public class NotificarMoradorService implements NotificarMoradorUseCase {
                 encomenda.getDescricao()
         );
 
-        System.out.println("Enviando notificação: " + mensagem + " para o telefone: " + morador.getTelefone());
+        System.out.println("Enviando notificação: " + mensagem);
         return true;
     }
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
+            .withZone(ZoneId.of("America/Sao_Paulo"));
 }

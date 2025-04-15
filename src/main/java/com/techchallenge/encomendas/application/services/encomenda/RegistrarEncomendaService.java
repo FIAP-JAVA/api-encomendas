@@ -89,7 +89,17 @@ public class RegistrarEncomendaService implements RegistrarEncomendaUseCase {
 
     @Override
     public boolean confirmarNotificacao(Long encomendaId) {
-        return false;
+        Encomenda encomenda = encomendaRepository.buscarPorId(encomendaId)
+                .orElseThrow(() -> new IllegalArgumentException("Encomenda não encontrada: " + encomendaId));
+
+        if (encomenda.getDataConfirmacaoNotificacao() != null) {
+            return true;
+        }
+
+        encomenda.setDataConfirmacaoNotificacao(LocalDateTime.now());
+        encomendaRepository.salvar(encomenda);
+
+        return true;
     }
 
     private void validarCamposObrigatorios(NovaEncomendaDTO novaEncomendaDTO) {

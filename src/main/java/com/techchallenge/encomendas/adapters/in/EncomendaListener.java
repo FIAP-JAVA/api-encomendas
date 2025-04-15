@@ -86,7 +86,7 @@ public class EncomendaListener {
             } catch (Exception e) {
                 logger.error("Erro ao processar confirmação de notificação para encomenda: {}",
                         confirmacaoDTO.encomendaId(), e);
-                throw e; // Para acionar retry ou DLQ
+                throw e;
             }
         };
     }

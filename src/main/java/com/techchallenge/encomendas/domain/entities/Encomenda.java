@@ -1,5 +1,6 @@
 package com.techchallenge.encomendas.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.techchallenge.encomendas.domain.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,9 +27,17 @@ public class Encomenda {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "America/Sao_Paulo")
     private LocalDateTime dataRecebimento;
+
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "America/Sao_Paulo")
     private LocalDateTime dataNotificacao;
+
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "America/Sao_Paulo")
     private LocalDateTime dataConfirmacaoNotificacao;
+
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "America/Sao_Paulo")
     private LocalDateTime dataRetirada;
+
     private String recebidaPor;
 }
