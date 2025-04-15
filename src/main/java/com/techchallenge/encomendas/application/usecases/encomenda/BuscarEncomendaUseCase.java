@@ -6,6 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BuscarEncomendaUseCase {
-    Optional<EncomendaDTO> buscarPorId(Long id);
+    EncomendaDTO buscarPorId(Long id);
     List<EncomendaDTO> buscarPorMorador(Long idMorador);
 }
