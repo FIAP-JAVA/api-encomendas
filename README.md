@@ -6,7 +6,7 @@
 ---
 
 ### **📌 Sobre o projeto**
-O **Tech Challenge - Gerenciamento de Encomendas** é um sistema que permite que porteiros de prédios residenciais organizem a entrega de encomendas para os moradores. O sistema permite notificações automáticas via mensageria (**RabbitMQ**) e mantém um registro no banco de dados (**PostgreSQL**).  
+O **Gerenciamento de Encomendas** é um sistema que permite que porteiros de prédios residenciais organizem a entrega de encomendas para os moradores. O sistema permite notificações automáticas via mensageria (**RabbitMQ**) e mantém um registro no banco de dados (**PostgreSQL**).  
 
 ### **🚀 Funcionalidades**
 ✔ Cadastro de moradores  
@@ -16,6 +16,7 @@ O **Tech Challenge - Gerenciamento de Encomendas** é um sistema que permite que
 ✔ Persistência de dados no banco PostgreSQL  
 ✔ Sistema baseado em **Clean Architecture**  
 ✔ Contêiner Docker para fácil execução  
+✔ Integração com RabbitMQ para comunicação assíncrona
 
 ---
 
@@ -67,7 +68,7 @@ spring:
 Clone o repositório:
 ```bash
 git clone https://github.com/seu-usuario/api-encomendas.git
-cd api-challenge-encomendas
+cd api-encomendas
 ```
 Compile e execute:
 ```bash
@@ -81,6 +82,17 @@ Após rodar o projeto, acesse a documentação:
 - API Docs: [http://localhost:8080/api-docs](http://localhost:8080/api-docs)
 
 ---
+## **📘 Clean Architecture**
+
+O projeto segue o princípio de Arquitetura Limpa, com as seguintes camadas:
+
+Domain: Contém as entidades de negócio (como Morador e Encomenda).
+
+Application: Implementa casos de uso, lógica de negócios e serviços.
+
+Adapters: Camada de interação com o mundo exterior (Controllers, Repositórios).
+
+Infrastructure: Implementações de persistência e mensageria (Banco de dados, RabbitMQ).
 
 ## **📌 Estrutura do Projeto**
 ```
@@ -119,7 +131,6 @@ Após rodar o projeto, acesse a documentação:
 ---
 
 ## **🛠 Modelagem de Dados**
----
 ![image](https://github.com/user-attachments/assets/b1bee03b-d16d-45c0-a5a3-d552c1f013c4)
 ---
 
@@ -130,6 +141,21 @@ mvn test
 ```
 
 ---
+## **📘 Docker e Docker Compose**
+
+Ao rodar o projeto com Docker Compose, o sistema irá iniciar dois contêineres:
+
+PostgreSQL: Banco de dados configurado automaticamente com o nome encomendas.
+
+A senha e o usuário são definidos no docker-compose.yml.
+
+O banco é configurado para ser persistido no volume postgres-data.
+
+RabbitMQ: Configurado para fornecer a mensageria de comunicação entre os serviços.
+
+Portas expostas: 5672 para AMQP (mensagens) e 15672 para o painel de administração.
+
+Ambos os serviços são interligados ao contêiner da aplicação principal, permitindo a comunicação entre a API e os bancos de dados e mensageria de forma simplificada.
 
 ## **🛳 Execução com Docker**
 Você pode rodar o projeto dentro de um contêiner com:
