@@ -3,6 +3,7 @@ package com.techchallenge.encomendas.application.services.morador;
 import com.techchallenge.encomendas.application.dto.MoradorDTO;
 import com.techchallenge.encomendas.application.mapper.MoradorMapper;
 import com.techchallenge.encomendas.application.usecases.morador.BuscarMoradorUseCase;
+import com.techchallenge.encomendas.domain.exceptions.morador.MoradorNaoEncontradoApartamentoException;
 import com.techchallenge.encomendas.domain.exceptions.morador.MoradorNaoEncontradoException;
 import com.techchallenge.encomendas.domain.repositories.MoradorRepository;
 import org.springframework.stereotype.Service;
@@ -37,10 +38,10 @@ public class BuscarMoradorService implements BuscarMoradorUseCase {
     }
 
     @Override
-    public List<MoradorDTO> buscarPorApartamento(String numeroApartamento) {
-        return moradorRepository.buscarPorApartamento(numeroApartamento).stream()
+    public MoradorDTO buscarPorApartamento(String numeroApartamento) {
+        return moradorRepository.buscarPorApartamento(numeroApartamento)
                 .map(moradorMapper::toDTO)
-                .toList();
+                .orElseThrow(() -> new MoradorNaoEncontradoApartamentoException(numeroApartamento));
     }
 
     @Override

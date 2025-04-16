@@ -5,12 +5,14 @@ import com.techchallenge.encomendas.domain.exceptions.encomenda.EncomendaJaRetir
 import com.techchallenge.encomendas.domain.exceptions.encomenda.EncomendaNaoEncontradaException;
 import com.techchallenge.encomendas.domain.exceptions.morador.MoradorJaCadastradoException;
 import com.techchallenge.encomendas.domain.exceptions.morador.MoradorNaoEncontradoException;
+import com.techchallenge.encomendas.domain.exceptions.morador.MoradorNaoEncontradoApartamentoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 @RestControllerAdvice
@@ -24,6 +26,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MoradorJaCadastradoException.class)
     public ResponseEntity<?> handleMoradorJaCadastrado(MoradorJaCadastradoException ex) {
         return new ResponseEntity<>(buildResponse(ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MoradorNaoEncontradoApartamentoException.class)
+    public ResponseEntity<?> handleMoradorNaoEncontradoApartamentoCadastrado(MoradorNaoEncontradoApartamentoException ex) {
+        return new ResponseEntity<>(buildResponse(ex.getMessage()), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
@@ -52,9 +59,12 @@ public class GlobalExceptionHandler {
     }
 
     private Map<String, Object> buildResponse(String mensagem) {
+        var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        var dataFormatada = LocalDateTime.now().format(formatter);
+
         return Map.of(
-                "timestamp", LocalDateTime.now(),
-                "mensagem", mensagem
+                "mensagem", mensagem,
+                "timestamp", dataFormatada
         );
     }
 }

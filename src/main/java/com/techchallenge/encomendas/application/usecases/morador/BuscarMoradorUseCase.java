@@ -7,6 +7,6 @@ import java.util.List;
 public interface BuscarMoradorUseCase {
     MoradorDTO buscarPorId(Long id);
     MoradorDTO buscarPorCpf(String cpf);
-    List<MoradorDTO> buscarPorApartamento(String apartamento);
+    MoradorDTO buscarPorApartamento(String apartamento);
     List<MoradorDTO> listarTodosMoradores();
 }

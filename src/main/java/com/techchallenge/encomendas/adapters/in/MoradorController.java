@@ -43,11 +43,8 @@ public class MoradorController {
     }
 
     @GetMapping(params = "apartamento")
-    public ResponseEntity<List<MoradorDTO>> buscarPorApartamento(@RequestParam String apartamento) {
+    public ResponseEntity<MoradorDTO> buscarPorApartamento(@RequestParam String apartamento) {
         var moradores = buscarMoradorUseCase.buscarPorApartamento(apartamento);
-        if (moradores.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
         return ResponseEntity.ok(moradores);
     }
 
