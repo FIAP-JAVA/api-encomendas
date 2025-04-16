@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/encomendas
+    url: jdbc:postgresql://postgres:5432/encomendas
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
@@ -12,7 +12,7 @@ spring:
     enabled: true
     baseline-on-migrate: true
   rabbitmq:
-    host: localhost
+    host: rabbitmq
     port: 5672
     username: guest
     password: guest
