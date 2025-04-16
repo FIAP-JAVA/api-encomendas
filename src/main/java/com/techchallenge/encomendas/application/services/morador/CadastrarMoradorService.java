@@ -25,7 +25,7 @@ public class CadastrarMoradorService implements CadastrarMoradorUseCase {
     @Transactional
     public MoradorDTO cadastrar(MoradorDTO moradorDTO) {
         if (moradorDTO.cpf() != null && moradorRepository.existePorCpf(moradorDTO.cpf())) {
-            throw new MoradorJaCadastradoException("Já existe um morador cadastrado com este CPF");
+            throw new MoradorJaCadastradoException(moradorDTO.cpf());
         }
 
         validarCamposObrigatorios(moradorDTO);

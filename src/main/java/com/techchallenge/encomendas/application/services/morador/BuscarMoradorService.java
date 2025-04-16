@@ -9,7 +9,6 @@ import com.techchallenge.encomendas.domain.repositories.MoradorRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BuscarMoradorService implements BuscarMoradorUseCase {
