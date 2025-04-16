@@ -45,10 +45,10 @@ public class RegistrarEncomendaService implements RegistrarEncomendaUseCase {
         Morador morador;
         if (novaEncomendaDTO.moradorId() != null) {
             morador = moradorRepository.buscarPorId(novaEncomendaDTO.moradorId())
-                    .orElseThrow(() -> new MoradorNaoEncontradoException("Morador não encontrado: " + novaEncomendaDTO.moradorId()));
+                    .orElseThrow(() -> new MoradorNaoEncontradoException(novaEncomendaDTO.moradorId()));
         } else if (novaEncomendaDTO.moradorCpf() != null && !novaEncomendaDTO.moradorCpf().isEmpty()) {
             morador = moradorRepository.buscarPorCpf(novaEncomendaDTO.moradorCpf())
-                    .orElseThrow(() -> new MoradorNaoEncontradoException("Morador não encontrado com CPF: " + novaEncomendaDTO.moradorCpf()));
+                    .orElseThrow(() -> new MoradorNaoEncontradoException(novaEncomendaDTO.moradorCpf()));
         } else {
             throw new CamposObrigatoriosException("É necessário informar o ID ou CPF do morador");
         }
